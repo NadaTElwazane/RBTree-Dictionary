@@ -1,44 +1,48 @@
-#Red black tree implementation
+# Red black tree implementation
 from enum import Enum
+
 
 class Color(Enum):
     RED = 1
     BLACK = 2
 
+
 class Node:
-    #initialize node
-    def __init__(self, value, color = Color.RED):
+    # initialize node
+    def __init__(self, value, color=Color.RED):
         self.value = value
         self.color = color
         self.left = None
         self.right = None
         self.parent = None
-    
+
     def is_leaf(self):
-        return self.left == None and self.right == None
+        return self.left is None and self.right is None
+
     def is_left_child(self):
         return self.parent.left == self
+
     def is_right_child(self):
         return self.parent.right == self
 
 
 class RedBlackTree:
-    #initialize red black tree
+    # initialize red black tree
     def __init__(self):
-        self.nil= Node(None, Color.BLACK)
+        self.nil = Node(None, Color.BLACK)
         self.root = self.nil
         self.nil.left = self.nil
         self.nil.right = self.nil
         self.nil.parent = self.nil
-        
+
     def insert(self, value):
-        # if(self.search(value) == True):
-        #     print("ERROR: Word already in the dictionary!")
-        #     return
-        
+        if self.search(value):
+            print("ERROR: Word already in the dictionary!")
+            return False
+
         new_node = Node(value)
-        temp_node= self.root
-        parent= self.nil
+        temp_node = self.root
+        parent = self.nil
         while temp_node != self.nil:
             parent = temp_node
             if value.casefold() < temp_node.value.casefold():
@@ -55,33 +59,34 @@ class RedBlackTree:
         new_node.left = self.nil
         new_node.right = self.nil
         self.insert_fixup(new_node)
+        return True
 
-    
+
     def insert_fixup(self, new_node):
         while new_node.parent.color == Color.RED:
-            #left parent case
+            # left parent case
             if new_node.parent.is_left_child():
                 uncle = new_node.parent.parent.right
-                #recolor case
+                # recolor case
                 if uncle.color == Color.RED:
                     new_node.parent.color = Color.BLACK
                     uncle.color = Color.BLACK
                     new_node.parent.parent.color = Color.RED
                     new_node = new_node.parent.parent
                 else:
-                    #uncle black
-                   
-                    if new_node.is_right_child(): 
-                        #Left Right Case
+                    # uncle black
+
+                    if new_node.is_right_child():
+                        # Left Right Case
                         new_node = new_node.parent
                         self.left_rotate(new_node)
-                    #left left case and continuation of left right case
+                    # left left case and continuation of left right case
                     new_node.parent.color = Color.BLACK
                     new_node.parent.parent.color = Color.RED
                     self.right_rotate(new_node.parent.parent)
-            #right parent case
+            # right parent case
             else:
-                #recolor
+                # recolor
                 uncle = new_node.parent.parent.left
                 if uncle.color == Color.RED:
                     new_node.parent.color = Color.BLACK
@@ -90,16 +95,16 @@ class RedBlackTree:
                     new_node = new_node.parent.parent
                 else:
                     if new_node.is_left_child():
-                    #right left case
+                        # right left case
                         new_node = new_node.parent
                         self.right_rotate(new_node)
-                    #right right case and continuation of right left case
+                    # right right case and continuation of right left case
                     new_node.parent.color = Color.BLACK
                     new_node.parent.parent.color = Color.RED
                     self.left_rotate(new_node.parent.parent)
         self.root.color = Color.BLACK
 
-    def left_rotate(self,new_node):
+    def left_rotate(self, new_node):
         temp_node = new_node.right
         new_node.right = temp_node.left
         if temp_node.left != self.nil:
@@ -113,8 +118,8 @@ class RedBlackTree:
             new_node.parent.right = temp_node
         temp_node.left = new_node
         new_node.parent = temp_node
-    
-    def right_rotate(self,new_node):
+
+    def right_rotate(self, new_node):
         temp_node = new_node.left
         new_node.left = temp_node.right
         if temp_node.right != self.nil:
@@ -139,12 +144,13 @@ class RedBlackTree:
             else:
                 temp_node = temp_node.right
         return False
+
     def height(self, node):
         if node == self.nil:
             return 0
         else:
             return 1 + max(self.height(node.left), self.height(node.right))
-    
+
     def size(self, node):
         if node == self.nil:
             return 0
@@ -157,11 +163,12 @@ class RedBlackTree:
             print(node.value)
             self.inorder(node.right)
 
-    #read string from dictionary.txt and insert into red black tree
+    # read string from dictionary.txt and insert into red black tree
     def read_dictionary(self, file_name):
         with open(file_name, 'r') as f:
             for line in f:
                 self.insert(line[:-1])
+
 
 tree = RedBlackTree()
 
@@ -181,10 +188,8 @@ while True:
     elif fn == "2":
         word = input("Enter word: ")
         if tree.insert(word):
-            print("Inserted"+word)
+            print("Inserted" ,word)
     else:
         break
     print("Height: " + str(tree.height(tree.root)))
     print("Size: " + str(tree.size(tree.root)))
-
-
