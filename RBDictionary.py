@@ -61,7 +61,6 @@ class RedBlackTree:
         self.insert_fixup(new_node)
         return True
 
-
     def insert_fixup(self, new_node):
         while new_node.parent.color == Color.RED:
             # left parent case
@@ -167,7 +166,7 @@ class RedBlackTree:
     def read_dictionary(self, file_name):
         with open(file_name, 'r') as f:
             for line in f:
-                self.insert(line[:-1])
+                self.insert(line.strip())
 
 
 tree = RedBlackTree()
@@ -188,7 +187,7 @@ while True:
     elif fn == "2":
         word = input("Enter word: ")
         if tree.insert(word):
-            print("Inserted" ,word)
+            print("Inserted", word)
     else:
         break
     print("Height: " + str(tree.height(tree.root)))
