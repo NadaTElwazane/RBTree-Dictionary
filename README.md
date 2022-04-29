@@ -14,5 +14,5 @@ A dictionary file is included in the repository but can be changed to any file b
 - **Search**: Search for a word in the dictionary.
 
 ## Authors
-- [Nada Ehab](github.com/nadaehab31)
-- [Nada Elwazane](github.com/nadatelwazane)
+- [Nada Ehab](https://www.github.com/nadaehab31)
+- [Nada Elwazane](https://www.github.com/nadatelwazane)
