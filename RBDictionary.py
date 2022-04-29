@@ -168,27 +168,32 @@ class RedBlackTree:
             for line in f:
                 self.insert(line.strip())
 
-
-tree = RedBlackTree()
-
-print("Loading dictionary...")
-tree.read_dictionary("EN-US-Dictionary.txt")
-print("Loading done!")
-print("Height: " + str(tree.height(tree.root)))
-print("Size: " + str(tree.size(tree.root)))
-while True:
-    fn = input("1. Search\n2. Insert\n3. Exit\n")
-    if fn == "1":
-        word = input("Enter word: ")
-        if tree.search(word):
-            print("Found")
-        else:
-            print("Not Found")
-    elif fn == "2":
-        word = input("Enter word: ")
-        if tree.insert(word):
-            print("Inserted", word)
-    else:
-        break
+def main():
+    tree = RedBlackTree()
+    print("Loading dictionary...")
+    tree.read_dictionary("EN-US-Dictionary.txt")
+    print("Loading done!")
     print("Height: " + str(tree.height(tree.root)))
     print("Size: " + str(tree.size(tree.root)))
+    while True:
+        fn = input("1. Search\n2. Insert\n3. Exit\n")
+        if fn == "1":
+            word = input("Enter word: ")
+            if tree.search(word):
+                print("Found")
+            else:
+                print("Not Found")
+        elif fn == "2":
+            word = input("Enter word: ")
+            if tree.insert(word):
+                print("Inserted", word)
+        elif fn == "3":
+            break
+        else:
+            print("Invalid input!")
+
+        print("Height: " + str(tree.height(tree.root)))
+        print("Size: " + str(tree.size(tree.root)))
+
+if __name__ == "__main__":
+    main()
