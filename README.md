@@ -12,6 +12,8 @@ A dictionary file is included in the repository but can be changed to any file b
 - **Load**: Loads the dictionary from a file to a Red Black Tree.
 - **Insert**: Insert a word into the dictionary.
 - **Search**: Search for a word in the dictionary.
+- **Height**: Returns the height of the dictionary.
+- **Size**: Returns the size of the dictionary.
 
 ## Authors
 - [Nada Ehab](https://www.github.com/nadaehab31)

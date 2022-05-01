@@ -176,7 +176,7 @@ def main():
     print("Height: " + str(tree.height(tree.root)))
     print("Size: " + str(tree.size(tree.root)))
     while True:
-        fn = input("1. Search\n2. Insert\n3. Exit\n")
+        fn = input("1. Search\n2. Insert\n3. Print Height\n4. Print Size\n5. Exit\n")
         if fn == "1":
             word = input("Enter word: ")
             if tree.search(word):
@@ -187,13 +187,17 @@ def main():
             word = input("Enter word: ")
             if tree.insert(word):
                 print("Inserted", word)
+                print("Updated Size: " + str(tree.size(tree.root)))
+                print("Updated Height: " + str(tree.height(tree.root)))
         elif fn == "3":
+            print("Height: " + str(tree.height(tree.root)))
+        elif fn == "4":
+            print("Size: " + str(tree.size(tree.root)))
+        elif fn == "5":
             break
         else:
             print("Invalid input!")
 
-        print("Height: " + str(tree.height(tree.root)))
-        print("Size: " + str(tree.size(tree.root)))
 
 if __name__ == "__main__":
     main()
